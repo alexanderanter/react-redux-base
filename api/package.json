@@ -1,0 +1,22 @@
+{
+	"name": "streams-api",
+	"version": "1.0.0",
+	"description": "API for streams",
+	"main": "index.js",
+	"scripts": {
+		"start": "json-server -p 3001 -w db.json"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/alexanderanter/streams-api.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/alexanderanter/streams-api/issues"
+	},
+	"homepage": "https://github.com/alexanderanter/streams-api#readme",
+	"dependencies": {
+		"json-server": "^0.16.2"
+	}
+}
