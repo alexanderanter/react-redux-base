@@ -2,14 +2,14 @@ import React from 'react';
 import './Search.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { fetchStreams } from '../actions';
 
 class Search extends React.Component {
 	state = { term: '', infoItems: [] };
 	componentDidMount() {
 		this.props.fetchStreams().then(() => {
-			const searchDataAr = Object.values(this.props.streams);
-			this.setState({ infoItems: searchDataAr });
+			this.setState({ infoItems: Object.values(this.props.streams) });
 		});
 	}
 	findMatches = (matchedWord, infoItems) => {
@@ -26,61 +26,46 @@ class Search extends React.Component {
 				term: e.target.value,
 			});
 	};
-	searchResult = (term, matches) => {
-		if (term !== '') {
-			const renderedList = matches.map((match) => {
-				const regexHi = new RegExp(term, 'gi');
+	searchResult = (term, matches) =>
+		matches.map((match) => {
+			const regexHi = new RegExp(term, 'gi');
 
-				const title = (
-					<span>
-						{match.title.split(regexHi).map((char, index) => (
-							<>
-								{char}
-								{index !== match.title.split(regexHi).length - 1 && (
-									<span className="hl">{term}</span>
-								)}
-							</>
-						))}
-					</span>
-				);
-				// const title = match.title.replace(
-				//     regexHi,
-				//     `<span className="hl">${term}</span>`
-				// );
-				const description = (
-					<span>
-						{match.description.split(regexHi).map((char, index) => (
-							<>
-								{char}
-								{index !== match.description.split(regexHi).length - 1 && (
-									<span className="hl">{term}</span>
-								)}
-							</>
-						))}
-					</span>
-				);
+			const title = (
+				<span>
+					{match.title.split(regexHi).map((char, index) => (
+						<React.Fragment key={index}>
+							{char}
+							{index !== match.title.split(regexHi).length - 1 && (
+								<span className="hl">{term}</span>
+							)}
+						</React.Fragment>
+					))}
+				</span>
+			);
+			//const title = match.title.replace(regexHi,`<span className="hl">${term}</span>`);
+			const description = (
+				<span>
+					{match.description.split(regexHi).map((char, index) => (
+						<React.Fragment key={index}>
+							{char}
+							{index !== match.description.split(regexHi).length - 1 && (
+								<span className="hl">{term}</span>
+							)}
+						</React.Fragment>
+					))}
+				</span>
+			);
 
-				return (
-					<Link key={match.id} to={`/streams/${match.id}`}>
-						<li>
-							<span className="name">
-								{title},{description}{' '}
-							</span>
-						</li>
-					</Link>
-				);
-			});
-
-			return <ul className="suggestions">{renderedList}</ul>;
-		}
-
-		return (
-			<ul className="suggestions">
-				<li>Enter a search term</li>
-			</ul>
-		);
-	};
-
+			return (
+				<Link key={match.id} to={`/streams/${match.id}`}>
+					<li>
+						<span className="name search-title truncate">
+							{title} - {description}{' '}
+						</span>
+					</li>
+				</Link>
+			);
+		});
 	render() {
 		return (
 			<div className="search-wrap">
@@ -93,10 +78,18 @@ class Search extends React.Component {
 						onChange={this.handleOnChange()}
 						onKeyUp={this.handleOnChange()}
 					/>
-					{this.searchResult(
-						this.state.term,
-						this.findMatches(this.state.term, this.state.infoItems)
-					)}
+					<ul className="suggestions">
+						{this.state.term ? (
+							<>
+								{this.searchResult(
+									this.state.term,
+									this.findMatches(this.state.term, this.state.infoItems)
+								)}
+							</>
+						) : (
+							<li>Enter a search term</li>
+						)}
+					</ul>
 				</form>
 			</div>
 		);

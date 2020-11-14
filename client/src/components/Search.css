@@ -6,6 +6,7 @@ html .search-wrap {
 	height: 100%;
 	padding: 10px 10px 50px 10px;
 }
+
 .search-wrap *,
 .search-wrap *:before,
 .search-wrap *:after {
@@ -15,7 +16,14 @@ html .search-wrap {
 	width: 100%;
 	padding: 20px;
 }
-
+.truncate {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.search-wrap .search-title {
+	padding-right: 5px;
+}
 .search-wrap .search-form {
 	max-width: 400px;
 	margin: 50px auto;
