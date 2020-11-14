@@ -18,6 +18,10 @@ const SearchResult = ({ matches, term }) => {
 					))}
 				</span>
 			);
+			// const title = match.title.replace(
+			//     regexHi,
+			//     `<span className="hl">${term}</span>`
+			// );
 			const description = (
 				<span>
 					{match.description.split(regexHi).map((char, index) => (
