@@ -4,7 +4,7 @@ import { fetchStream } from '../../actions';
 
 class StreamShow extends React.Component {
 	componentDidMount() {
-		this.props.fetchStream(this.props.match.params.id);
+		this.props.fetchStream('/streams', this.props.match.params.id);
 	}
 	render() {
 		if (!this.props.stream) {

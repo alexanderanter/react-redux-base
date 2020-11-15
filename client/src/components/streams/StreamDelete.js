@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 
 class StreamDelete extends React.Component {
 	componentDidMount() {
-		this.props.fetchStream(this.props.match.params.id);
+		this.props.fetchStream('/streams', this.props.match.params.id);
 	}
 	onDeleteClick = () => {
-		this.props.deleteStream(this.props.match.params.id);
+		this.props.deleteStream('/streams', this.props.match.params.id);
 	};
 	renderActions() {
 		return (

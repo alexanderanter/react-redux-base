@@ -8,7 +8,7 @@ import { fetchStreams } from '../actions';
 class Search extends React.Component {
 	state = { term: '', infoItems: [] };
 	componentDidMount() {
-		this.props.fetchStreams().then(() => {
+		this.props.fetchStreams('streams').then(() => {
 			this.setState({ infoItems: Object.values(this.props.streams) });
 		});
 	}
